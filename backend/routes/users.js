@@ -1,10 +1,18 @@
 const router = require('express').Router();
-let User = require('../models/user.models')
+let User = require('../models/user.models');
+const { ObjectId } = require('mongodb');
 
-router.route('/').get((req,res)=> { //if get request with route '/'
+router.route('/all').get((req,res)=> { //if get request with route '/'
     User.find() // mongose gets all users in db
     .then(users => res.json(users)) //return users in json format
     .catch(err => res.status(400).json('Error:' + err)); //else error
+});
+
+router.route('/:id').get((req,res)=>{
+    User.findById(req.params.id)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error:' + err));
+
 });
 
 

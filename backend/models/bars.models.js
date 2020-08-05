@@ -19,6 +19,6 @@ const barsSchema = new Schema({
 
 
 
-const bars = mongoose.model('bars', barsSchema);
+const Bar = mongoose.model('bars', barsSchema);
 
-module.exports = bars;
+module.exports = Bar;

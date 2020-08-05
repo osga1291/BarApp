@@ -8,6 +8,7 @@ router.route('/').get((req,res)=> { //if get request with route '/'
 });
 
 
+
 router.route('/add').post((req,res)=> { //if post request with /add
     const username = req.body.username; //body of req is username
 
@@ -17,5 +18,7 @@ router.route('/add').post((req,res)=> { //if post request with /add
         .then(() => res.json('User added!'))  //return in json
         .catch(err => res.status(400).json('Error:' + err));
 });
+
+
 
 module.exports = router; //exporting the router
