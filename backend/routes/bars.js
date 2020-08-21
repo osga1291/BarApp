@@ -1,6 +1,7 @@
 const router = require('express').Router();
-
-let Bar = require('../models/bars.models')
+const { ObjectId } = require('mongodb');
+let Bar = require('../models/bars.models');
+const drinks = require('../models/drinks.models');
 
 router.route('/').get((req,res)=> { //if get request with route '/'
     Bar.find() // mongose gets all users in db
@@ -8,11 +9,16 @@ router.route('/').get((req,res)=> { //if get request with route '/'
     .catch(err => res.status(400).json('Error:' + err)); //else error
 });
 
-router.route('/:id').get((req,res)=> { //if get request with route '/'
+
+
+    router.route('/:id/').get((req,res)=> { //if get request with route '/'
     Bar.findById(req.params.id) // mongose gets all users in db
     .then(bar => res.json(bar)) //return users in json format
     .catch(err => res.status(400).json('Error:' + err)); //else error
 });
+ 
+
+
 
 router.route('/:id').delete((req,res)=> { //if get request with route '/'
     Bar.findByIdAndDelete(req.params.id) // mongose gets all users in db
@@ -21,12 +27,13 @@ router.route('/:id').delete((req,res)=> { //if get request with route '/'
 });
 
 
+
 router.route('/update/:id').post((req,res)=> { //if get request with route '/'
     Bar.findById(req.params.id) // mongose gets all users in db
-    .then(exercise =>{
+    .then(bars =>{
         bars.username = req.body.username;
         bars.name = req.body.name;
-        
+
     
         
         exercise.save()
@@ -36,6 +43,8 @@ router.route('/update/:id').post((req,res)=> { //if get request with route '/'
     .catch(err => res.status(400).json('Error:' + err));
 
 });
+
+
 
 router.route('/add').post((req,res)=> { //if post request with /add
     const username = req.body.username; //body of req is username
@@ -50,5 +59,7 @@ router.route('/add').post((req,res)=> { //if post request with /add
         .then(() => res.json('Bar added!'))  //return in json
         .catch(err => res.status(400).json('Error:' + err));
 });
+
+
 
 module.exports = router; //exporting the router

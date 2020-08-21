@@ -23,7 +23,7 @@ const drinksRouter = require('./routes/drinks') ;
 const barsRouter = require('./routes/bars');
 const usersRouter = require('./routes/users');
 
-app.use('/drinks', drinksRouter);
+app.use('/bars/:id', drinksRouter);
 app.use('/bars',barsRouter);
 app.use('/users',usersRouter);
 
