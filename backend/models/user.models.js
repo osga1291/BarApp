@@ -42,13 +42,13 @@ const userSchema = new Schema({
     },
     favorite_bars:{
         drinks : [{
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "bars"}
         ]
     },
     favorite_drinks : [
         {
-            type: mongoose.Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId,
             ref: "drinks"  
         }
     ]

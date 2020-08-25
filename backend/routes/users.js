@@ -1,10 +1,23 @@
 const router = require('express').Router();
-let User = require('../models/user.models')
+let User = require('../models/user.models');
+const { ObjectId } = require('mongodb');
+require('dotenv').config();
 
-router.route('/').get((req,res)=> { //if get request with route '/'
+const {Client , Status} = require("@googlemaps/google-maps-services-js");
+
+router.route('/all').get((req,res)=> { //if get request with route '/'
     User.find() // mongose gets all users in db
     .then(users => res.json(users)) //return users in json format
     .catch(err => res.status(400).json('Error:' + err)); //else error
+});
+
+
+
+router.route('/:id').get((req,res)=>{
+    User.findById(req.params.id)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error:' + err));
+
 });
 
 
@@ -36,8 +49,8 @@ router.route('/update/:id').post((req,res)=> { //if get request with route '/'
         user.username = req.body.username;
         user.name = req.body.name;
         user.imageURL = req.body.imageURL;
-        //user.favorite_bars = req.body.favorite_bars;
-        //user.favorite_drinks = req.body.favorite_drinks;
+        user.favorite_bars = [];
+        user.favorite_drinks = [];
 
         user.save()
           .then(() => res.json('User updated!'))
@@ -140,4 +153,20 @@ router.post("/login", (req, res) => {
     });
   });
   
-  module.exports = router; //exporting the router
+    const client = new Client({});
+    async ()=> await client.elevation({
+        params: {
+          locations: [{ lat: 45, lng: -110 }],
+          key: "AIzaSyDCfLMM94TUmn5sHyx_uwpu4AWDt1I_xPA",
+        },
+        timeout: 1000, // milliseconds
+      })
+      .then((r) => {
+         console.log(r.data.results[0].elevation);
+      }) 
+      .catch((e) => {
+        console.log(e.response.data.error_message);
+      }); 
+      
+
+module.exports = router; //exporting the router

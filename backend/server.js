@@ -24,6 +24,7 @@ const barsRouter = require('./routes/bars');
 const usersRouter = require('./routes/users');
 const passport = require("passport");
 
+<<<<<<< HEAD
 // Passport middleware
 app.use(passport.initialize());
 
@@ -32,6 +33,9 @@ require("./config/passport")(passport);
 
 // Routes
 app.use('/drinks', drinksRouter);
+=======
+app.use('/bars/:id', drinksRouter);
+>>>>>>> bab72e7a0d244d40f1805780c4dc7d74a9d541d5
 app.use('/bars',barsRouter);
 app.use('/users',usersRouter);
 
