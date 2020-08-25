@@ -22,7 +22,15 @@ connection.once('open', () => {
 const drinksRouter = require('./routes/drinks') ;
 const barsRouter = require('./routes/bars');
 const usersRouter = require('./routes/users');
+const passport = require("passport");
 
+// Passport middleware
+app.use(passport.initialize());
+
+// Passport config
+require("./config/passport")(passport);
+
+// Routes
 app.use('/drinks', drinksRouter);
 app.use('/bars',barsRouter);
 app.use('/users',usersRouter);

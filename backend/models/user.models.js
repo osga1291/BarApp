@@ -19,6 +19,18 @@ const userSchema = new Schema({
         required: true,
         trim: true
     },
+    email: {
+        type: String,
+        required: true
+    },
+      password: {
+        type: String,
+        required: true
+    },
+      date: {
+        type: Date,
+        default: Date.now
+    },
     imageURL:{
         type: Buffer,
         contentType: String
